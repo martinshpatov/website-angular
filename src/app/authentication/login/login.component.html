@@ -1,0 +1,35 @@
+<main >
+  <fieldset >
+
+          <form [formGroup]="loginForm" >
+            <h3 >Login</h3>
+
+            <section>
+              <label  for="username" class="text-info">Username:</label><br>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                class="form-control"
+                formControlName="username">
+            </section>
+
+            <section>
+              <label for="password" class="text-info">Password:</label><br>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                formControlName="passWord">
+            </section>
+
+            <section>
+              <input type="submit" name="submit" class="btn btn-info btn-md" value="submit" (click)="loginGo()">
+              </section>
+
+          </form>
+
+  </fieldset>
+</main>
+

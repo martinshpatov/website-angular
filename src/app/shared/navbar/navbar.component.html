@@ -1,29 +1,51 @@
 <ngx-loading-bar [includeSpinner]="false"></ngx-loading-bar>
 
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="">News</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="">Home</a>
+
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/news" routerLinkActive="active">News</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="tech">Tech News</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="business">Business News</a>
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/contact" routerLinkActive="active">Contact Us</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="" (click)="goOnLogin()">Login</a>
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/about" routerLinkActive="active">About Us</a>
+        </li>
+
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/faq" routerLinkActive="active">FAQ</a>
+        </li>
+
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/partners" routerLinkActive="active">Partners</a>
+        </li>
+
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/technews" routerLinkActive="active" >TechNews</a>
+        </li>
+
+        <li class="nav-item login">
+          <a *ngIf="!isLoggedIn" class="nav-link" aria-current="page" routerLink="/login" routerLinkActive="active">Login</a>
+        
+          <a 
+          *ngIf="isLoggedIn" 
+          class="nav-link" 
+          (click)="onLogout()"
+          aria-current="page" 
+          routerLink="/login">
+          Logout
+        </a>
+
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="">Register</a>
+          <a *ngIf="!isLoggedIn" class="nav-link" aria-current="page" routerLink="" routerLinkActive="active" >Register</a>
         </li>
       </ul>
     </div>
