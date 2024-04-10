@@ -2,13 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { StoreService } from 'src/app/service/store.service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent implements OnInit, OnDestroy{
  
-  isLoggedIn = false;
+  isLoggedIn: boolean = false;
   destroy$ = new Subject<void>();
 
   constructor(

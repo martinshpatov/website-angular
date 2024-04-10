@@ -1,18 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NewsapiService } from '../service/newsapi.service';
+import { Unicorn } from '../models/unicorn.interface';
+import { StoreService } from '../service/store.service';
+import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+
 @Component({
   selector: 'app-technews',
   templateUrl: './technews.component.html',
+  styleUrls: ['./technews.component.css']
 })
-export class TechnewsComponent implements OnInit{
+export class TechnewsComponent implements OnInit, OnDestroy{
+  destroy$ = new Subject<void>();
+  constructor(private _services:NewsapiService, private service: StoreService,  private router: Router) {}
+  
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+;
 
-  constructor(private _services:NewsapiService) {};
-
-  technewsDisplay:any = [];
+  technewsDisplay:Unicorn[] = [];
 
   ngOnInit(): void {
-    this._services.techNews().subscribe((result)=> {
-       this.technewsDisplay = result.articles;
+    this._services.getUnicorns().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((result)=> {
+       this.technewsDisplay = result;
       })
+  }
+ 
+
+  gotEditPage(id: string): void {
+   this._services.getUnicorn(id).subscribe(x => {
+    this.service.addUnicorn(x);
+   });
+   this.router.navigateByUrl('edit');
   }
 }

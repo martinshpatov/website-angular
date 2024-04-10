@@ -8,16 +8,19 @@ import { PartnersComponent } from './partners/partners.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { FormDetailsComponent } from './authentication/form-details/form-details.component';
 import { TechnewsComponent } from './technews/technews.component';
+import { AuthGuard } from './auth.guard';
+import { EditUnicornComponent } from './edit-unicorn/edit-unicorn.component';
 
 const routes: Routes = [
   {path: '', component:FormDetailsComponent},
   {path: 'login', component:LoginComponent},
-  {path: 'news', component: TopheadlinesComponent },
-  {path:'contact', component:ContactUsComponent},
-  {path:'about', component:AboutUsComponent},
-  {path:'faq', component:FaqComponent},
-  {path:'partners', component:PartnersComponent},
-  {path:'technews', component:TechnewsComponent},
+  {path: 'news', component: TopheadlinesComponent, canActivate: [AuthGuard]  },
+  {path:'contact', component:ContactUsComponent,canActivate: [AuthGuard] },
+  {path:'about', component:AboutUsComponent, canActivate: [AuthGuard] },
+  {path:'faq', component:FaqComponent,canActivate: [AuthGuard] },
+  {path:'partners', component:PartnersComponent,canActivate: [AuthGuard]},
+  {path:'edit', component:EditUnicornComponent,canActivate: [AuthGuard] },
+  {path:'technews', component:TechnewsComponent,canActivate: [AuthGuard] },
 ];
 
 @NgModule({
